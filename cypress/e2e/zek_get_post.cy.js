@@ -13,6 +13,31 @@ describe("get and post user", () => {
             cy.log("response:", res)
             expect(res.status).to.eq(200)
         })
-
     })
+
+    it ("post user", () => {
+
+        let name = "zek test"
+        let email = "zektest@test.test"
+
+        cy.request({
+            method: "POST", 
+            url: url + "/v2/users/",
+            body: {
+                "name": name,
+                "email": email,
+                "gender": "Male",
+                "status": "active",
+            },
+            headers: {
+                Authorization: token
+            }
+        }).then((res) => {
+            cy.log("response:", res)
+            expect(res.status).to.eq(201)
+            expect(res.body.name).to.eq(name)
+        })
+    })
+
+
 })
